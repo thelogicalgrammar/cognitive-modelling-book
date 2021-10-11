@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Cognitive Modelling</title>
-  <meta name="description" content="Cognitive Modelling" />
+  <title>4 Rational Speech Act models | Cognitive Modelling</title>
+  <meta name="description" content="4 Rational Speech Act models | Cognitive Modelling" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Cognitive Modelling" />
+  <meta property="og:title" content="4 Rational Speech Act models | Cognitive Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Cognitive Modelling" />
+  <meta name="twitter:title" content="4 Rational Speech Act models | Cognitive Modelling" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction-lab.html"/>
+<link rel="prev" href="cultural-evolution-in-bayesian-agents.html"/>
+<link rel="next" href="inferring-causal-relations-in-the-world.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -207,31 +207,121 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Cognitive Modelling</h1>
-<p class="author"><em>Fausto Carcassi</em></p>
-<p class="date"><em>2021-10-11</em></p>
+<div id="rational-speech-act-models" class="section level1">
+<h1><span class="header-section-number">4</span> Rational Speech Act models</h1>
+<div id="surprisal-in-information-theory" class="section level2">
+<h2><span class="header-section-number">4.1</span> Surprisal in information theory</h2>
+<p>Information theory is a big field of research. However, here we will only use one (although very important) concepts from information theory, namely <em>surprisal</em>. Surprisal is a quantity that describes, intuitively, how unexpected a certain observation is. The unexpectedness of an observation is intuitively a function of the probability of that observation: the more probable the observation, the less unexpected it will be, and the more improbable the more unexpected.</p>
+<p>How to formalize unexpectedness as a function of probability, i.e. find a function <span class="math inline">\(f\)</span> so that given a probability <span class="math inline">\(p\)</span> we can calculate its level of unexpectedness <span class="math inline">\(f(p)\)</span>? We can put some constraints on <span class="math inline">\(f\)</span> and then find an actual function that satisfies them:</p>
+<ul>
+<li>When an event has probability 0, it is infinitely unexpected. In formal terms, <span class="math inline">\(f(0.)=\infty\)</span>.</li>
+<li>When an event has probability 1, it is not unexpected at all. In formal terms, <span class="math inline">\(f(1.)=0.\)</span></li>
+<li>Say we have two independent events with probabilities <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>, so that the probability of both of them occurring is <span class="math inline">\(p_1 p_2\)</span>. We want the total unexpectedness of observing both events to be simply the sum of the unexpectedness of the two events. In formal terms <span class="math inline">\(f(p_1 p_2) = f(p_1)+f(p_2)\)</span>.</li>
+</ul>
+<p>Given these three requirements, you can see that the following is the function we are looking for to describe surprisal (unexpectedness) as a function of probability:</p>
+<p><span class="math display">\[
+f(p) = -\log(p)
+\]</span></p>
+<p>Check that the three requirements above are satisfied:</p>
+<ul>
+<li><span class="math inline">\(-\log(p)\)</span> tends to <span class="math inline">\(\infty\)</span> as <span class="math inline">\(p\)</span> goes to 0.</li>
+<li><span class="math inline">\(-\log(1)=0\)</span>.</li>
+<li><span class="math inline">\(-\log(p_1 p_2)=-(\log(p_1)+\log(p_2))=(-\log(p_1))+(-\log(p_2))\)</span>.</li>
+</ul>
+<p>Here’s the plot of this function:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="rational-speech-act-models.html#cb99-1"></a><span class="kw">curve</span>(<span class="op">-</span><span class="kw">log</span>(x), <span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>Why is surprisal important to us? Because it can work as a guide to what signal to send to a listener. Imagine that you observe a number between 1 and 10, and you need to describe it to a listener, who hears your description and then has to pick a number - you win the game if number you observed is the same as the number picked by the participant. Suppose you observe 2. Now, would you rather say ‘I saw an even number’ or ‘I saw 2’? Clearly the latter is better when it comes to make the listener guess which number you observed. Why? Well, you can think about it in terms of surprisal: you are trying to minimize the listener’s surprisal of the true number <em>given the signal</em>. In other words, you are trying to send a signal such that the number you observed is not surprising for the listener after they received your signal.</p>
+<p><em>Exercise</em>: Calculate the surprisal of ‘I saw an even number’ and ‘I saw two’ (given that you saw 2).</p>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>These is the code for labs of the Cognitive Modelling course I taught in Amsterdam
-in the Winter semester 2021. It’s got plenty of typos &amp; many parts could be clearer,
-but this has to happen over multiple iterations of the course!
-I couldn’t find a coherent set of labs for a course like this, so I thought I’d
-write it myself. I learned R in a rush to do this, so the code could be better
-in many ways, but here we are.</p>
-<p>The whole this is in base R except for a single package in the last lab
-with LogSumExp, which is there mainly to teach students how to use functions from a package.</p>
-<p>Feedback <em>very</em> welcome.</p>
+<div id="the-rational-speech-act-model" class="section level2">
+<h2><span class="header-section-number">4.2</span> The Rational Speech Act model</h2>
+<p>Let’s start by defining some useful functions:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="rational-speech-act-models.html#cb100-1"></a>rowNormalize &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb100-2"><a href="rational-speech-act-models.html#cb100-2"></a>  <span class="co"># first create a vector with the sums of the rows</span></span>
+<span id="cb100-3"><a href="rational-speech-act-models.html#cb100-3"></a>  summed.rows &lt;-<span class="st"> </span><span class="kw">apply</span>(x,<span class="dv">1</span>,<span class="st">&#39;sum&#39;</span>)</span>
+<span id="cb100-4"><a href="rational-speech-act-models.html#cb100-4"></a>  <span class="co"># then divide each element by the sum of its row</span></span>
+<span id="cb100-5"><a href="rational-speech-act-models.html#cb100-5"></a>  normalized.rows &lt;-<span class="st"> </span><span class="kw">sweep</span>(x, <span class="dv">1</span>, summed.rows, <span class="st">&#39;/&#39;</span>)</span>
+<span id="cb100-6"><a href="rational-speech-act-models.html#cb100-6"></a>  <span class="co"># at the end you get a probability distribution for each row</span></span>
+<span id="cb100-7"><a href="rational-speech-act-models.html#cb100-7"></a>  <span class="kw">return</span>(normalized.rows)</span>
+<span id="cb100-8"><a href="rational-speech-act-models.html#cb100-8"></a>}</span>
+<span id="cb100-9"><a href="rational-speech-act-models.html#cb100-9"></a></span>
+<span id="cb100-10"><a href="rational-speech-act-models.html#cb100-10"></a>colNormalize &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb100-11"><a href="rational-speech-act-models.html#cb100-11"></a>  <span class="co"># same as above, but with columns</span></span>
+<span id="cb100-12"><a href="rational-speech-act-models.html#cb100-12"></a>  summed.columns &lt;-<span class="st"> </span><span class="kw">apply</span>(x,<span class="dv">2</span>,<span class="st">&#39;sum&#39;</span>)</span>
+<span id="cb100-13"><a href="rational-speech-act-models.html#cb100-13"></a>  normalized.columns &lt;-<span class="st"> </span><span class="kw">sweep</span>(x, <span class="dv">2</span>, summed.columns, <span class="st">&#39;/&#39;</span>)</span>
+<span id="cb100-14"><a href="rational-speech-act-models.html#cb100-14"></a>  <span class="co"># at the end you get a probability distribution for each column</span></span>
+<span id="cb100-15"><a href="rational-speech-act-models.html#cb100-15"></a>  <span class="kw">return</span>(normalized.columns)</span>
+<span id="cb100-16"><a href="rational-speech-act-models.html#cb100-16"></a>}</span>
+<span id="cb100-17"><a href="rational-speech-act-models.html#cb100-17"></a></span>
+<span id="cb100-18"><a href="rational-speech-act-models.html#cb100-18"></a>softMax &lt;-<span class="st"> </span><span class="cf">function</span>(x, alpha){</span>
+<span id="cb100-19"><a href="rational-speech-act-models.html#cb100-19"></a>  <span class="co"># first we calculate the numerator of softmax</span></span>
+<span id="cb100-20"><a href="rational-speech-act-models.html#cb100-20"></a>  <span class="co"># (see definition)</span></span>
+<span id="cb100-21"><a href="rational-speech-act-models.html#cb100-21"></a>  unnormalized.softmax &lt;-<span class="st"> </span><span class="kw">exp</span>(alpha<span class="op">*</span>x)</span>
+<span id="cb100-22"><a href="rational-speech-act-models.html#cb100-22"></a>  <span class="co"># then we normalize each column</span></span>
+<span id="cb100-23"><a href="rational-speech-act-models.html#cb100-23"></a>  normalized.softmax &lt;-<span class="st"> </span><span class="kw">colNormalize</span>(unnormalized.softmax)</span>
+<span id="cb100-24"><a href="rational-speech-act-models.html#cb100-24"></a>  <span class="kw">return</span>(normalized.softmax)</span>
+<span id="cb100-25"><a href="rational-speech-act-models.html#cb100-25"></a>}</span></code></pre></div>
+<p>Then define the language. Each row corresponds to a signal and each column to a state.</p>
+<p>(The example I have in mind is: there’s two cookies in a jar, and you are describing to your friend how many you had. You can say ‘I had some’, ‘I had all’, ‘I had none’, or stay silent. ‘I had some’ would mean that you had 1 or 2 cookies, ‘I had all’ would mean that you had 2 cookies, etc. If you stay silent, that’s compatible with all states - you’re not excluding any option)</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="rational-speech-act-models.html#cb101-1"></a>language &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
+<span id="cb101-2"><a href="rational-speech-act-models.html#cb101-2"></a>  <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb101-3"><a href="rational-speech-act-models.html#cb101-3"></a>  <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb101-4"><a href="rational-speech-act-models.html#cb101-4"></a>  <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb101-5"><a href="rational-speech-act-models.html#cb101-5"></a>  <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb101-6"><a href="rational-speech-act-models.html#cb101-6"></a>)</span>
+<span id="cb101-7"><a href="rational-speech-act-models.html#cb101-7"></a></span>
+<span id="cb101-8"><a href="rational-speech-act-models.html#cb101-8"></a><span class="kw">rownames</span>(language) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;some&#39;</span>, <span class="st">&#39;all&#39;</span>, <span class="st">&#39;none&#39;</span>, <span class="st">&#39;silence&#39;</span>)</span>
+<span id="cb101-9"><a href="rational-speech-act-models.html#cb101-9"></a><span class="kw">colnames</span>(language) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb101-10"><a href="rational-speech-act-models.html#cb101-10"></a></span>
+<span id="cb101-11"><a href="rational-speech-act-models.html#cb101-11"></a><span class="kw">heatmap</span>(language, <span class="dt">Colv=</span><span class="ot">NA</span>, <span class="dt">Rowv =</span> <span class="ot">NA</span>, <span class="dt">scale=</span><span class="st">&#39;none&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p>Now, let’s calculate the literal listener. The listener defines a probability vector for every row (i.e. every signal), because they get a signal and calculate a distribution over states. The literal listener assumes that given a state a random one of the signals compatible with the state is chosen. Since the literal listener has a uniform distribution over states, the posterior can be obtained simply by normalizing the language by row.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="rational-speech-act-models.html#cb102-1"></a>l0 &lt;-<span class="st"> </span><span class="kw">rowNormalize</span>(language)</span>
+<span id="cb102-2"><a href="rational-speech-act-models.html#cb102-2"></a><span class="kw">heatmap</span>(l0, <span class="dt">Colv=</span><span class="ot">NA</span>, <span class="dt">Rowv =</span> <span class="ot">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p>Next, let’s calculate the pragmatic speaker. The pragmatic speaker observes a state and has to choose a signal, therefore we’ll end up with a matrix where each column is a distribution. However, the pragmatic speaker does not simply pick a random one among the signals compatible with the observed state. Rather, they tend to pick a signal that has the greatest utility for the literal listener, where utility is calculated as the negative surprisal, <span class="math inline">\(-(-\log(p))\)</span>, of the state given the signal from the point of view of the literal listener.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="rational-speech-act-models.html#cb103-1"></a>s1 &lt;-<span class="st"> </span><span class="kw">softMax</span>(<span class="kw">log</span>(l0), <span class="fl">2.</span>)</span>
+<span id="cb103-2"><a href="rational-speech-act-models.html#cb103-2"></a><span class="kw">heatmap</span>(s1, <span class="dt">Colv=</span><span class="ot">NA</span>, <span class="dt">Rowv =</span> <span class="ot">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p>Finally, we can calculate the pragmatic listener. This is similar to the literal listener above in that it receives a signal and calculates a distribution over states. However, unlike the literal listener above, it knows the signal isn’t simply selected at random. Rather, it imagines the signal as being selected by the pragmatic speaker.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="rational-speech-act-models.html#cb104-1"></a>l1 &lt;-<span class="st"> </span><span class="kw">rowNormalize</span>(s1)</span>
+<span id="cb104-2"><a href="rational-speech-act-models.html#cb104-2"></a><span class="kw">heatmap</span>(l1, <span class="dt">Colv=</span><span class="ot">NA</span>, <span class="dt">Rowv =</span> <span class="ot">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p>Note that the pragmatic listener correctly infers a scalar implicature. Although ‘most’ is semantically compatible with the state where ‘all’ is also true, in general the pragmatic listener will infer that if ‘most’ was uttered, ‘all’ was not true (or the pragmatic speaker would have said ‘all’ instead). This is a bit tricky to wrap your head around, so make sure you have followed every step of the simulation above and see how it corresponds to your linguistic intuition.</p>
+</div>
+<div id="if-there-is-time-left-3" class="section level2">
+<h2><span class="header-section-number">4.3</span> If there is time left…</h2>
+<ul>
+<li>Add more meanings and signals and see how the model behaves.</li>
+<li>Add costs to the utterances based on the equations in the paper, and observed what effects it has.</li>
+<li>Rewrite the code above to work with log probabilities.</li>
+</ul>
+</div>
+<div id="exercises-3" class="section level2">
+<h2><span class="header-section-number">4.4</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>What is the surprisal of observing:
+<ul>
+<li>4 heads in a row from an unbiased coin?</li>
+<li>2 heads and 2 tails?</li>
+<li>3 red balls from a cup containing 3 blue balls and 1 red ball?</li>
+</ul></li>
+<li>What is the effect of increasing the rationality parameter in the RSA model? What happens when the rationality parameter goes to <span class="math inline">\(\infty\)</span>? And 0?</li>
+<li>Add a cost to the signals as described in the paper, so that silence has cost 0 and the other three signals cost 1. What is the effect of increasing the cost of a signal on the probability of the signal being uttered?</li>
+<li>Add one level of recursion to the RSA code. What happens to the <span class="math inline">\(p(2|\text{all})\)</span>? Plot it.</li>
+<li>What happens as the number of levels increases?</li>
+</ol>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introduction-lab.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cultural-evolution-in-bayesian-agents.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inferring-causal-relations-in-the-world.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
