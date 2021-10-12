@@ -326,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb105-54"><a href="inferring-causality.html#cb105-54"></a>}</span></code></pre></div>
 <p>And let’s test this function:</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="inferring-causality.html#cb106-1"></a><span class="kw">produce.data.CE</span>()</span></code></pre></div>
-<pre><code>## [1] 10  3 10</code></pre>
+<pre><code>## [1] 4 4 4</code></pre>
 <p>What we need next is a function that take a specific datapoint produced by the function above and categorizes it into one of the four cases described above.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="inferring-causality.html#cb108-1"></a>divide.cases &lt;-<span class="st"> </span><span class="cf">function</span>(samples){</span>
 <span id="cb108-2"><a href="inferring-causality.html#cb108-2"></a>  </span>
@@ -353,10 +353,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb109-8"><a href="inferring-causality.html#cb109-8"></a></span>
 <span id="cb109-9"><a href="inferring-causality.html#cb109-9"></a><span class="kw">print</span>(samples.CC)</span></code></pre></div>
 <pre><code>##   case.1   case.2   case.3   case.4 
-## 0.096420 0.870844 0.003610 0.029126</code></pre>
+## 0.096378 0.870964 0.003440 0.029218</code></pre>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="inferring-causality.html#cb111-1"></a><span class="kw">print</span>(samples.CE)</span></code></pre></div>
 <pre><code>##   case.1   case.2   case.3   case.4 
-## 0.671988 0.295770 0.003670 0.028572</code></pre>
+## 0.671370 0.295992 0.003696 0.028942</code></pre>
 <p>You can see that these approximations are pretty close to the ones in the paper!</p>
 </div>
 <div id="bayesian-inference" class="section level2">

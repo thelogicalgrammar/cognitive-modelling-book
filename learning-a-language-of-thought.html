@@ -547,19 +547,19 @@ P(L | W, T, C)
 <span id="cb149-10"><a href="learning-a-language-of-thought.html#cb149-10"></a></span>
 <span id="cb149-11"><a href="learning-a-language-of-thought.html#cb149-11"></a><span class="kw">tail</span>(loglikelihoods)</span></code></pre></div>
 <pre><code>##       oneKnower   twoKnower threeKnower    CPKnower singularPlural        mod5 twoNotOneKnower
-## 345 -5.29831737 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394     -0.04604394
-## 346 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394     -5.29831737
-## 347 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394     -5.29831737
-## 348 -5.29831737 -5.29831737 -5.29831737 -0.04604394    -5.29831737 -0.04604394     -5.29831737
-## 349 -5.29831737 -5.29831737 -0.04604394 -0.04604394    -5.29831737 -0.04604394     -5.29831737
-## 350 -5.29831737 -5.29831737 -0.04604394 -0.04604394    -5.29831737 -0.04604394     -5.29831737
+## 345 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394       -5.298317
+## 346 -5.29831737 -5.29831737 -5.29831737 -0.04604394    -5.29831737 -5.29831737       -5.298317
+## 347 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394       -5.298317
+## 348 -5.29831737 -5.29831737 -5.29831737 -0.04604394    -5.29831737 -0.04604394       -5.298317
+## 349 -5.29831737 -5.29831737 -5.29831737 -0.04604394    -5.29831737 -5.29831737       -5.298317
+## 350 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394       -5.298317
 ##      twoNKnower
-## 345 -5.29831737
-## 346 -0.04604394
+## 345 -0.04604394
+## 346 -5.29831737
 ## 347 -0.04604394
 ## 348 -5.29831737
 ## 349 -5.29831737
-## 350 -5.29831737</code></pre>
+## 350 -0.04604394</code></pre>
 <p>NOTE: the CPKnower always gets the highest possible likelihood for all true number words, because it’s the true speaker!</p>
 <p>The cumulative product of the likelihood (or in this case the cumulative sum of the loglikelihood) tells us what the likelihood was at each successive observation for each LoT.</p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="learning-a-language-of-thought.html#cb151-1"></a>cumulative.loglikelihood &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sapply</span>(loglikelihoods, cumsum))</span>
@@ -575,19 +575,19 @@ P(L | W, T, C)
 <span id="cb152-5"><a href="learning-a-language-of-thought.html#cb152-5"></a></span>
 <span id="cb152-6"><a href="learning-a-language-of-thought.html#cb152-6"></a><span class="kw">head</span>(posterior)</span></code></pre></div>
 <pre><code>##         oneKnower    twoKnower  threeKnower     CPKnower singularPlural         mod5 twoNotOneKnower
-## [1,] 1.046024e-03 1.997905e-01 1.997905e-01 1.227556e-06   1.997905e-01 1.997905e-01    1.997905e-01
-## [2,] 5.202165e-03 6.104972e-06 1.867525e-12 1.166050e-03   9.936135e-01 6.104972e-06    1.867525e-12
-## [3,] 1.649630e-10 5.128067e-03 5.128067e-03 9.794609e-01   3.150793e-08 5.128067e-03    2.684852e-05
-## [4,] 1.608423e-08 4.999969e-01 3.072087e-06 1.794939e-10   3.072087e-06 4.999969e-01    8.421061e-11
-## [5,] 2.698691e-05 3.167034e-08 5.154500e-03 9.845094e-01   5.154500e-03 3.167034e-08    7.397525e-10
-## [6,] 5.145973e-17 6.136934e-06 9.988154e-01 1.172154e-03   1.877302e-12 6.136934e-06    1.433459e-07
+## [1,] 1.997903e-01 1.997903e-01 1.997903e-01 1.227554e-06   1.997903e-01 1.997903e-01    1.046023e-03
+## [2,] 4.999939e-01 3.072068e-06 9.397529e-13 3.072068e-06   4.999939e-01 3.072068e-06    2.576006e-17
+## [3,] 1.228839e-06 1.999995e-01 1.999995e-01 1.999995e-01   1.228839e-06 1.999995e-01    2.870310e-08
+## [4,] 1.608423e-08 4.999969e-01 3.072087e-06 9.397586e-13   3.072087e-06 4.999969e-01    4.408932e-13
+## [5,] 2.712583e-05 3.183338e-08 5.181034e-03 9.895776e-01   5.181034e-03 6.080175e-06    7.435606e-10
+## [6,] 9.817362e-15 6.129787e-06 9.976523e-01 1.170789e-03   1.875116e-12 1.170789e-03    7.496279e-10
 ##        twoNKnower
-## [1,] 6.426992e-09
-## [2,] 6.104972e-06
-## [3,] 5.128067e-03
-## [4,] 9.397586e-13
-## [5,] 5.154500e-03
-## [6,] 3.213054e-08</code></pre>
+## [1,] 1.227554e-06
+## [2,] 3.072068e-06
+## [3,] 1.999995e-01
+## [4,] 4.920202e-15
+## [5,] 2.712583e-05
+## [6,] 3.209313e-08</code></pre>
 <p>Finally, let’s plot the posterior distribution. You can see that the general pattern from the paper holds: initially, various other hypotheses dominate, but eventually over enough observations the CPKnower wins out. Note that this plot is similar but not identical to Figure 3(a) in the paper. The difference is that they consider all possible LoTs, and therefore more than one LoT encodes each type of agent - e.g. more than one LoT is a oneKnower etc. On the other hand, we specified a small list of LoTs.</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="learning-a-language-of-thought.html#cb154-1"></a>posterior &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(posterior)</span>
 <span id="cb154-2"><a href="learning-a-language-of-thought.html#cb154-2"></a><span class="kw">matplot</span>(</span>
