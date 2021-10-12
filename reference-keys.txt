@@ -1,6 +1,6 @@
 exr:unlabeled-div-1
 exr:unlabeled-div-2
-introduction-lab
+introduction
 bits-and-pieces-of-r
 a-motivating-example-sampling-from-an-urn
 sampling-possible-worlds-from-the-generative-model
