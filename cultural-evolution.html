@@ -288,7 +288,7 @@ Since we are considering all <em>possible</em> languages, across all languages t
 ## [2,]    1    1    0
 ## [3,]    0    0    0</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="cultural-evolution.html#cb87-1"></a><span class="kw">print</span>(<span class="kw">pick.object</span>(languages[language.index,,]))</span></code></pre></div>
-<pre><code>## [1] 2 2</code></pre>
+<pre><code>## [1] 1 2</code></pre>
 </div>
 <div id="bayesian-learning-of-the-language-from-data" class="section level2">
 <h2><span class="header-section-number">3.2</span> Bayesian learning of the language from data</h2>
@@ -401,7 +401,7 @@ Since we are considering all <em>possible</em> languages, across all languages t
 <span id="cb96-31"><a href="cultural-evolution.html#cb96-31"></a>history &lt;-<span class="st"> </span><span class="kw">iterate</span>(n.iterations, n.observations, uniform.prior)</span>
 <span id="cb96-32"><a href="cultural-evolution.html#cb96-32"></a></span>
 <span id="cb96-33"><a href="cultural-evolution.html#cb96-33"></a><span class="kw">head</span>(history)</span></code></pre></div>
-<pre><code>## [1] 241 113  43  51 119  47</code></pre>
+<pre><code>## [1] 187 241 106  66  19 124</code></pre>
 <p>If you run for 10k generations, you will see that it starts being pretty uniform over the set of languages! How can you interpret that?</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="cultural-evolution.html#cb98-1"></a><span class="kw">barplot</span>(history)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
