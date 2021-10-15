@@ -24,7 +24,7 @@
 <meta name="author" content="Fausto Carcassi" />
 
 
-<meta name="date" content="2021-10-12" />
+<meta name="date" content="2021-10-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="rational-speech-acts.html"/>
-<link rel="next" href="learning-a-language-of-thought.html"/>
+<link rel="next" href="learning-in-a-language-of-thought.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -183,12 +183,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7.3" data-path="inferring-causality.html"><a href="inferring-causality.html#appendix-3-another-complication"><i class="fa fa-check"></i><b>5.7.3</b> Appendix 3: Another complication</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="learning-a-language-of-thought.html"><a href="learning-a-language-of-thought.html"><i class="fa fa-check"></i><b>6</b> Learning a Language of Thought</a><ul>
-<li class="chapter" data-level="6.1" data-path="learning-a-language-of-thought.html"><a href="learning-a-language-of-thought.html#the-logsumexp-function"><i class="fa fa-check"></i><b>6.1</b> The LogSumExp function</a></li>
-<li class="chapter" data-level="6.2" data-path="learning-a-language-of-thought.html"><a href="learning-a-language-of-thought.html#the-conceptual-primitives-and-number-systems"><i class="fa fa-check"></i><b>6.2</b> The conceptual primitives and number systems</a></li>
-<li class="chapter" data-level="6.3" data-path="learning-a-language-of-thought.html"><a href="learning-a-language-of-thought.html#learning-an-lot"><i class="fa fa-check"></i><b>6.3</b> Learning an LoT</a></li>
-<li class="chapter" data-level="6.4" data-path="learning-a-language-of-thought.html"><a href="learning-a-language-of-thought.html#if-there-is-time-left-4"><i class="fa fa-check"></i><b>6.4</b> If there is time left…</a></li>
-<li class="chapter" data-level="6.5" data-path="learning-a-language-of-thought.html"><a href="learning-a-language-of-thought.html#exercises-5"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
+<li class="chapter" data-level="6" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html"><i class="fa fa-check"></i><b>6</b> Learning in a Language of Thought</a><ul>
+<li class="chapter" data-level="6.1" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#the-logsumexp-function"><i class="fa fa-check"></i><b>6.1</b> The LogSumExp function</a></li>
+<li class="chapter" data-level="6.2" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#the-conceptual-primitives-and-number-systems"><i class="fa fa-check"></i><b>6.2</b> The conceptual primitives and number systems</a></li>
+<li class="chapter" data-level="6.3" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#learning-an-lot"><i class="fa fa-check"></i><b>6.3</b> Learning an LoT</a></li>
+<li class="chapter" data-level="6.4" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#if-there-is-time-left-4"><i class="fa fa-check"></i><b>6.4</b> If there is time left…</a></li>
+<li class="chapter" data-level="6.5" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#exercises-5"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
 </ul></li>
 </ul>
 
@@ -346,17 +346,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="inferring-causality.html#cb109-1"></a>n=<span class="dv">500000</span></span>
 <span id="cb109-2"><a href="inferring-causality.html#cb109-2"></a></span>
 <span id="cb109-3"><a href="inferring-causality.html#cb109-3"></a>samples.CC &lt;-</span>
-<span id="cb109-4"><a href="inferring-causality.html#cb109-4"></a><span class="st">  </span><span class="kw">rowMeans</span>(<span class="kw">divide.cases</span>(<span class="kw">replicate</span>(n, <span class="kw">produce.data.CE</span>())))</span>
+<span id="cb109-4"><a href="inferring-causality.html#cb109-4"></a><span class="st">  </span><span class="kw">rowMeans</span>(<span class="kw">divide.cases</span>(<span class="kw">replicate</span>(n, <span class="kw">produce.data.CC</span>())))</span>
 <span id="cb109-5"><a href="inferring-causality.html#cb109-5"></a></span>
 <span id="cb109-6"><a href="inferring-causality.html#cb109-6"></a>samples.CE &lt;-</span>
-<span id="cb109-7"><a href="inferring-causality.html#cb109-7"></a><span class="st">  </span><span class="kw">rowMeans</span>(<span class="kw">divide.cases</span>(<span class="kw">replicate</span>(n, <span class="kw">produce.data.CC</span>())))</span>
+<span id="cb109-7"><a href="inferring-causality.html#cb109-7"></a><span class="st">  </span><span class="kw">rowMeans</span>(<span class="kw">divide.cases</span>(<span class="kw">replicate</span>(n, <span class="kw">produce.data.CE</span>())))</span>
 <span id="cb109-8"><a href="inferring-causality.html#cb109-8"></a></span>
 <span id="cb109-9"><a href="inferring-causality.html#cb109-9"></a><span class="kw">print</span>(samples.CC)</span></code></pre></div>
 <pre><code>##   case.1   case.2   case.3   case.4 
-## 0.096378 0.870964 0.003440 0.029218</code></pre>
+## 0.670670 0.296704 0.003666 0.028960</code></pre>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="inferring-causality.html#cb111-1"></a><span class="kw">print</span>(samples.CE)</span></code></pre></div>
 <pre><code>##   case.1   case.2   case.3   case.4 
-## 0.671370 0.295992 0.003696 0.028942</code></pre>
+## 0.096158 0.871538 0.003616 0.028688</code></pre>
 <p>You can see that these approximations are pretty close to the ones in the paper!</p>
 </div>
 <div id="bayesian-inference" class="section level2">
@@ -586,7 +586,7 @@ e^{-\frac{T-t}{\delta}}
         </div>
       </div>
 <a href="rational-speech-acts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="learning-a-language-of-thought.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="learning-in-a-language-of-thought.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

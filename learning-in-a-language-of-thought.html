@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Learning in a Language of Thought | An Introduction to Bayesian Cognitive Modelling in R</title>
+  <meta name="description" content="6 Learning in a Language of Thought | An Introduction to Bayesian Cognitive Modelling in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Learning in a Language of Thought | An Introduction to Bayesian Cognitive Modelling in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Learning in a Language of Thought | An Introduction to Bayesian Cognitive Modelling in R" />
+  
+  
+  
+
+<meta name="author" content="Fausto Carcassi" />
+
+
+<meta name="date" content="2021-10-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="inferring-causality.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#bits-and-pieces-of-r"><i class="fa fa-check"></i><b>1.1</b> Bits and pieces of R</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#a-motivating-example-sampling-from-an-urn"><i class="fa fa-check"></i><b>1.2</b> A motivating example: Sampling from an urn</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#sampling-possible-worlds-from-the-generative-model"><i class="fa fa-check"></i><b>1.2.1</b> Sampling possible worlds from the generative model</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#bayesian-update-learning-from-the-data"><i class="fa fa-check"></i><b>1.3</b> Bayesian update: Learning from the data</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction.html"><a href="introduction.html#reminder-bayes-theorem"><i class="fa fa-check"></i><b>1.3.1</b> Reminder: Bayes Theorem</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction.html"><a href="introduction.html#applying-bayes-theorem-to-the-urn-case"><i class="fa fa-check"></i><b>1.3.2</b> Applying Bayes theorem to the urn case</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction.html"><a href="introduction.html#implementation-detail-how-to-avoid-calculating-pd"><i class="fa fa-check"></i><b>1.3.3</b> Implementation detail: How to avoid calculating p(D)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#if-there-is-time-left"><i class="fa fa-check"></i><b>1.4</b> If there is time left…</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.5</b> Exercises</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#answers"><i class="fa fa-check"></i><b>1.6</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="categorization.html"><a href="categorization.html"><i class="fa fa-check"></i><b>2</b> Categorization</a><ul>
+<li class="chapter" data-level="2.1" data-path="categorization.html"><a href="categorization.html#the-case-of-a-single-observation"><i class="fa fa-check"></i><b>2.1</b> The case of a single observation</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="categorization.html"><a href="categorization.html#little-r-programming-trick"><i class="fa fa-check"></i><b>2.1.1</b> Little R programming trick</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="categorization.html"><a href="categorization.html#the-case-of-multiple-observations"><i class="fa fa-check"></i><b>2.2</b> The case of multiple observations</a></li>
+<li class="chapter" data-level="2.3" data-path="categorization.html"><a href="categorization.html#if-there-is-time-left-1"><i class="fa fa-check"></i><b>2.3</b> If there is time left…</a></li>
+<li class="chapter" data-level="2.4" data-path="categorization.html"><a href="categorization.html#exercises-1"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+<li class="chapter" data-level="2.5" data-path="categorization.html"><a href="categorization.html#answers-1"><i class="fa fa-check"></i><b>2.5</b> Answers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cultural-evolution.html"><a href="cultural-evolution.html"><i class="fa fa-check"></i><b>3</b> Cultural Evolution</a><ul>
+<li class="chapter" data-level="3.1" data-path="cultural-evolution.html"><a href="cultural-evolution.html#the-languages"><i class="fa fa-check"></i><b>3.1</b> The languages</a></li>
+<li class="chapter" data-level="3.2" data-path="cultural-evolution.html"><a href="cultural-evolution.html#bayesian-learning-of-the-language-from-data"><i class="fa fa-check"></i><b>3.2</b> Bayesian learning of the language from data</a></li>
+<li class="chapter" data-level="3.3" data-path="cultural-evolution.html"><a href="cultural-evolution.html#cultural-evolution-with-bayesian-agents"><i class="fa fa-check"></i><b>3.3</b> Cultural evolution with Bayesian agents!</a></li>
+<li class="chapter" data-level="3.4" data-path="cultural-evolution.html"><a href="cultural-evolution.html#if-there-is-time-left-2"><i class="fa fa-check"></i><b>3.4</b> If there is time left…</a></li>
+<li class="chapter" data-level="3.5" data-path="cultural-evolution.html"><a href="cultural-evolution.html#exercises-2"><i class="fa fa-check"></i><b>3.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rational-speech-acts.html"><a href="rational-speech-acts.html"><i class="fa fa-check"></i><b>4</b> Rational Speech Acts</a><ul>
+<li class="chapter" data-level="4.1" data-path="rational-speech-acts.html"><a href="rational-speech-acts.html#surprisal-in-information-theory"><i class="fa fa-check"></i><b>4.1</b> Surprisal in information theory</a></li>
+<li class="chapter" data-level="4.2" data-path="rational-speech-acts.html"><a href="rational-speech-acts.html#the-rational-speech-act-model"><i class="fa fa-check"></i><b>4.2</b> The Rational Speech Act model</a></li>
+<li class="chapter" data-level="4.3" data-path="rational-speech-acts.html"><a href="rational-speech-acts.html#if-there-is-time-left-3"><i class="fa fa-check"></i><b>4.3</b> If there is time left…</a></li>
+<li class="chapter" data-level="4.4" data-path="rational-speech-acts.html"><a href="rational-speech-acts.html#exercises-3"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="inferring-causality.html"><a href="inferring-causality.html"><i class="fa fa-check"></i><b>5</b> Inferring causality</a><ul>
+<li class="chapter" data-level="5.1" data-path="inferring-causality.html"><a href="inferring-causality.html#setup"><i class="fa fa-check"></i><b>5.1</b> Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="inferring-causality.html"><a href="inferring-causality.html#approximating-the-likelihood-with-a-simulation"><i class="fa fa-check"></i><b>5.2</b> Approximating the likelihood with a simulation</a></li>
+<li class="chapter" data-level="5.3" data-path="inferring-causality.html"><a href="inferring-causality.html#bayesian-inference"><i class="fa fa-check"></i><b>5.3</b> Bayesian inference</a></li>
+<li class="chapter" data-level="5.4" data-path="inferring-causality.html"><a href="inferring-causality.html#one-complication-from-real-participants"><i class="fa fa-check"></i><b>5.4</b> One complication from real participants</a></li>
+<li class="chapter" data-level="5.5" data-path="inferring-causality.html"><a href="inferring-causality.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.5</b> Putting it all together</a></li>
+<li class="chapter" data-level="5.6" data-path="inferring-causality.html"><a href="inferring-causality.html#exercises-4"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+<li class="chapter" data-level="5.7" data-path="inferring-causality.html"><a href="inferring-causality.html#appendices-you-dont-need-to-understand-them"><i class="fa fa-check"></i><b>5.7</b> Appendices (You don’t need to understand them)</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="inferring-causality.html"><a href="inferring-causality.html#appendix-1"><i class="fa fa-check"></i><b>5.7.1</b> Appendix 1</a></li>
+<li class="chapter" data-level="5.7.2" data-path="inferring-causality.html"><a href="inferring-causality.html#appendix-2-gamma1."><i class="fa fa-check"></i><b>5.7.2</b> Appendix 2: <span class="math inline">\(\gamma=1\)</span>.</a></li>
+<li class="chapter" data-level="5.7.3" data-path="inferring-causality.html"><a href="inferring-causality.html#appendix-3-another-complication"><i class="fa fa-check"></i><b>5.7.3</b> Appendix 3: Another complication</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html"><i class="fa fa-check"></i><b>6</b> Learning in a Language of Thought</a><ul>
+<li class="chapter" data-level="6.1" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#the-logsumexp-function"><i class="fa fa-check"></i><b>6.1</b> The LogSumExp function</a></li>
+<li class="chapter" data-level="6.2" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#the-conceptual-primitives-and-number-systems"><i class="fa fa-check"></i><b>6.2</b> The conceptual primitives and number systems</a></li>
+<li class="chapter" data-level="6.3" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#learning-an-lot"><i class="fa fa-check"></i><b>6.3</b> Learning an LoT</a></li>
+<li class="chapter" data-level="6.4" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#if-there-is-time-left-4"><i class="fa fa-check"></i><b>6.4</b> If there is time left…</a></li>
+<li class="chapter" data-level="6.5" data-path="learning-in-a-language-of-thought.html"><a href="learning-in-a-language-of-thought.html#exercises-5"><i class="fa fa-check"></i><b>6.5</b> Exercises</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Bayesian Cognitive Modelling in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="learning-in-a-language-of-thought" class="section level1">
+<h1><span class="header-section-number">6</span> Learning in a Language of Thought</h1>
+<p>Reading: Piantadosi, Steven T., Joshua B. Tenenbaum, and Noah D. Goodman. “Bootstrapping in a Language of Thought: A Formal Model of Numerical Concept Learning.” Cognition 123, no. 2 (May 2012): 199–217.</p>
+<div id="the-logsumexp-function" class="section level2">
+<h2><span class="header-section-number">6.1</span> The LogSumExp function</h2>
+<p>Import the <code>matrixStats</code> library that we will use for its rowLogSumExp function.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="learning-in-a-language-of-thought.html#cb121-1"></a><span class="kw">library</span>(matrixStats)</span></code></pre></div>
+<pre><code>## Warning: package &#39;matrixStats&#39; was built under R version 4.0.5</code></pre>
+<p>Logsumexp is an operation on a vector that allows us to sum probabilities in log-space. Effectively, it calculates the following in an intelligent way (you don’t need to worry about what happens under the hood):</p>
+<p><span class="math display">\[
+\log \left( \sum_i \exp(x_i) \right)
+\]</span></p>
+<p>In our case, we will have a vector of log-probabilities, and we will need to normalize it. To find the normalization factor, we will need the sum of the probabilities, which we will then log again and subtract from each element of the vector to normalize (recall that in log-space subtraction corresponds to division in non-log-space). We can do this sum with the LogSumExp function.</p>
+</div>
+<div id="the-conceptual-primitives-and-number-systems" class="section level2">
+<h2><span class="header-section-number">6.2</span> The conceptual primitives and number systems</h2>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="learning-in-a-language-of-thought.html#cb123-1"></a>words &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;one&#39;</span>,</span>
+<span id="cb123-2"><a href="learning-in-a-language-of-thought.html#cb123-2"></a>           <span class="st">&#39;two&#39;</span>,</span>
+<span id="cb123-3"><a href="learning-in-a-language-of-thought.html#cb123-3"></a>           <span class="st">&#39;three&#39;</span>,</span>
+<span id="cb123-4"><a href="learning-in-a-language-of-thought.html#cb123-4"></a>           <span class="st">&#39;four&#39;</span>,</span>
+<span id="cb123-5"><a href="learning-in-a-language-of-thought.html#cb123-5"></a>           <span class="st">&#39;five&#39;</span>,</span>
+<span id="cb123-6"><a href="learning-in-a-language-of-thought.html#cb123-6"></a>           <span class="st">&#39;six&#39;</span>,</span>
+<span id="cb123-7"><a href="learning-in-a-language-of-thought.html#cb123-7"></a>           <span class="st">&#39;seven&#39;</span>,</span>
+<span id="cb123-8"><a href="learning-in-a-language-of-thought.html#cb123-8"></a>           <span class="st">&#39;eight&#39;</span>,</span>
+<span id="cb123-9"><a href="learning-in-a-language-of-thought.html#cb123-9"></a>           <span class="st">&#39;nine&#39;</span>,</span>
+<span id="cb123-10"><a href="learning-in-a-language-of-thought.html#cb123-10"></a>           <span class="st">&#39;ten&#39;</span>)</span>
+<span id="cb123-11"><a href="learning-in-a-language-of-thought.html#cb123-11"></a></span>
+<span id="cb123-12"><a href="learning-in-a-language-of-thought.html#cb123-12"></a>setA &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>)</span>
+<span id="cb123-13"><a href="learning-in-a-language-of-thought.html#cb123-13"></a>setB &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>)</span></code></pre></div>
+<p>In the paper, a bunch of conceptual primitives are considered, which can be combined to create an LoT. Here is how they can be written in R:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="learning-in-a-language-of-thought.html#cb124-1"></a>singleton &lt;-<span class="st"> </span><span class="cf">function</span>(X)     <span class="kw">length</span>(X)<span class="op">==</span><span class="dv">1</span></span>
+<span id="cb124-2"><a href="learning-in-a-language-of-thought.html#cb124-2"></a>doubleton &lt;-<span class="st"> </span><span class="cf">function</span>(X)     <span class="kw">length</span>(X)<span class="op">==</span><span class="dv">2</span></span>
+<span id="cb124-3"><a href="learning-in-a-language-of-thought.html#cb124-3"></a>tripleton &lt;-<span class="st"> </span><span class="cf">function</span>(X)     <span class="kw">length</span>(X)<span class="op">==</span><span class="dv">3</span></span>
+<span id="cb124-4"><a href="learning-in-a-language-of-thought.html#cb124-4"></a></span>
+<span id="cb124-5"><a href="learning-in-a-language-of-thought.html#cb124-5"></a>set.difference &lt;-<span class="st"> </span><span class="cf">function</span>(X,Y) <span class="kw">setdiff</span>(X,Y)</span>
+<span id="cb124-6"><a href="learning-in-a-language-of-thought.html#cb124-6"></a>union.f        &lt;-<span class="st"> </span><span class="cf">function</span>(X,Y) <span class="kw">union</span>(X,Y)</span>
+<span id="cb124-7"><a href="learning-in-a-language-of-thought.html#cb124-7"></a>intersection.f &lt;-<span class="st"> </span><span class="cf">function</span>(X,Y) <span class="kw">intersect</span>(X,Y)</span>
+<span id="cb124-8"><a href="learning-in-a-language-of-thought.html#cb124-8"></a>select.f       &lt;-<span class="st"> </span><span class="cf">function</span>(X)   X[<span class="dv">1</span>]</span>
+<span id="cb124-9"><a href="learning-in-a-language-of-thought.html#cb124-9"></a></span>
+<span id="cb124-10"><a href="learning-in-a-language-of-thought.html#cb124-10"></a>and.f     &lt;-<span class="st"> </span><span class="cf">function</span>(P,Q)   P <span class="op">&amp;</span><span class="st"> </span>Q</span>
+<span id="cb124-11"><a href="learning-in-a-language-of-thought.html#cb124-11"></a>or.f      &lt;-<span class="st"> </span><span class="cf">function</span>(P,Q)   P <span class="op">||</span><span class="st"> </span>Q</span>
+<span id="cb124-12"><a href="learning-in-a-language-of-thought.html#cb124-12"></a>not.f     &lt;-<span class="st"> </span><span class="cf">function</span>(P)     <span class="op">!</span><span class="st"> </span>Q</span>
+<span id="cb124-13"><a href="learning-in-a-language-of-thought.html#cb124-13"></a>if.f      &lt;-<span class="st"> </span><span class="cf">function</span>(P,X,Y) <span class="kw">ifelse</span>(P,X,Y)</span>
+<span id="cb124-14"><a href="learning-in-a-language-of-thought.html#cb124-14"></a></span>
+<span id="cb124-15"><a href="learning-in-a-language-of-thought.html#cb124-15"></a>next.f    &lt;-<span class="st"> </span><span class="cf">function</span>(W)     words[<span class="kw">match</span>(W, words)<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb124-16"><a href="learning-in-a-language-of-thought.html#cb124-16"></a>prev.f    &lt;-<span class="st"> </span><span class="cf">function</span>(W)     words[<span class="kw">match</span>(W, words)<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb124-17"><a href="learning-in-a-language-of-thought.html#cb124-17"></a></span>
+<span id="cb124-18"><a href="learning-in-a-language-of-thought.html#cb124-18"></a>equal.word &lt;-<span class="st"> </span><span class="cf">function</span>(W,V)  W<span class="op">==</span>V</span></code></pre></div>
+<p>We are not going to generate LoTs or sample from the grammar like they do in the paper. Rather, we are just going to use the few LoTs that are individually discussed in the paper (Figure 1). Each LoT is a function from sets to number words. Here is how they can be coded from the conceptual primitives above:</p>
+<ul>
+<li>oneKnower</li>
+</ul>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="learning-in-a-language-of-thought.html#cb125-1"></a>oneKnower &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb125-2"><a href="learning-in-a-language-of-thought.html#cb125-2"></a>  <span class="kw">return</span>(<span class="kw">if.f</span>(</span>
+<span id="cb125-3"><a href="learning-in-a-language-of-thought.html#cb125-3"></a>    <span class="kw">singleton</span>(S),</span>
+<span id="cb125-4"><a href="learning-in-a-language-of-thought.html#cb125-4"></a>    <span class="st">&#39;one&#39;</span>,</span>
+<span id="cb125-5"><a href="learning-in-a-language-of-thought.html#cb125-5"></a>    <span class="st">&#39;na&#39;</span></span>
+<span id="cb125-6"><a href="learning-in-a-language-of-thought.html#cb125-6"></a>  ))</span>
+<span id="cb125-7"><a href="learning-in-a-language-of-thought.html#cb125-7"></a>}</span></code></pre></div>
+<ul>
+<li>twoKnower</li>
+</ul>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="learning-in-a-language-of-thought.html#cb126-1"></a>twoKnower &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb126-2"><a href="learning-in-a-language-of-thought.html#cb126-2"></a>  <span class="kw">return</span>(<span class="kw">if.f</span>(</span>
+<span id="cb126-3"><a href="learning-in-a-language-of-thought.html#cb126-3"></a>    <span class="kw">singleton</span>(S),</span>
+<span id="cb126-4"><a href="learning-in-a-language-of-thought.html#cb126-4"></a>    <span class="st">&#39;one&#39;</span>,</span>
+<span id="cb126-5"><a href="learning-in-a-language-of-thought.html#cb126-5"></a>    <span class="kw">if.f</span>(</span>
+<span id="cb126-6"><a href="learning-in-a-language-of-thought.html#cb126-6"></a>      <span class="kw">doubleton</span>(S),</span>
+<span id="cb126-7"><a href="learning-in-a-language-of-thought.html#cb126-7"></a>      <span class="st">&#39;two&#39;</span>,</span>
+<span id="cb126-8"><a href="learning-in-a-language-of-thought.html#cb126-8"></a>      <span class="st">&#39;na&#39;</span></span>
+<span id="cb126-9"><a href="learning-in-a-language-of-thought.html#cb126-9"></a>    )</span>
+<span id="cb126-10"><a href="learning-in-a-language-of-thought.html#cb126-10"></a>  ))</span>
+<span id="cb126-11"><a href="learning-in-a-language-of-thought.html#cb126-11"></a>}</span></code></pre></div>
+<ul>
+<li>threeKnower</li>
+</ul>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="learning-in-a-language-of-thought.html#cb127-1"></a>threeKnower &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb127-2"><a href="learning-in-a-language-of-thought.html#cb127-2"></a>  <span class="kw">return</span>(<span class="kw">if.f</span>(</span>
+<span id="cb127-3"><a href="learning-in-a-language-of-thought.html#cb127-3"></a>    <span class="kw">singleton</span>(S),</span>
+<span id="cb127-4"><a href="learning-in-a-language-of-thought.html#cb127-4"></a>    <span class="st">&#39;one&#39;</span>,</span>
+<span id="cb127-5"><a href="learning-in-a-language-of-thought.html#cb127-5"></a>    <span class="kw">if.f</span>(</span>
+<span id="cb127-6"><a href="learning-in-a-language-of-thought.html#cb127-6"></a>      <span class="kw">doubleton</span>(S),</span>
+<span id="cb127-7"><a href="learning-in-a-language-of-thought.html#cb127-7"></a>      <span class="st">&#39;two&#39;</span>,</span>
+<span id="cb127-8"><a href="learning-in-a-language-of-thought.html#cb127-8"></a>      <span class="kw">if.f</span>(</span>
+<span id="cb127-9"><a href="learning-in-a-language-of-thought.html#cb127-9"></a>        <span class="kw">tripleton</span>(S),</span>
+<span id="cb127-10"><a href="learning-in-a-language-of-thought.html#cb127-10"></a>        <span class="st">&#39;three&#39;</span>,</span>
+<span id="cb127-11"><a href="learning-in-a-language-of-thought.html#cb127-11"></a>        <span class="st">&#39;na&#39;</span></span>
+<span id="cb127-12"><a href="learning-in-a-language-of-thought.html#cb127-12"></a>      )</span>
+<span id="cb127-13"><a href="learning-in-a-language-of-thought.html#cb127-13"></a>    )</span>
+<span id="cb127-14"><a href="learning-in-a-language-of-thought.html#cb127-14"></a>  ))</span>
+<span id="cb127-15"><a href="learning-in-a-language-of-thought.html#cb127-15"></a>}</span></code></pre></div>
+<ul>
+<li>CPKnower</li>
+</ul>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="learning-in-a-language-of-thought.html#cb128-1"></a>CPKnower &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb128-2"><a href="learning-in-a-language-of-thought.html#cb128-2"></a>  <span class="kw">return</span>(<span class="kw">if.f</span>(</span>
+<span id="cb128-3"><a href="learning-in-a-language-of-thought.html#cb128-3"></a>    <span class="kw">singleton</span>(S),</span>
+<span id="cb128-4"><a href="learning-in-a-language-of-thought.html#cb128-4"></a>    <span class="st">&#39;one&#39;</span>,</span>
+<span id="cb128-5"><a href="learning-in-a-language-of-thought.html#cb128-5"></a>    <span class="kw">next.f</span>(</span>
+<span id="cb128-6"><a href="learning-in-a-language-of-thought.html#cb128-6"></a>      <span class="kw">CPKnower</span>(</span>
+<span id="cb128-7"><a href="learning-in-a-language-of-thought.html#cb128-7"></a>        <span class="kw">set.difference</span>(</span>
+<span id="cb128-8"><a href="learning-in-a-language-of-thought.html#cb128-8"></a>          S,</span>
+<span id="cb128-9"><a href="learning-in-a-language-of-thought.html#cb128-9"></a>          <span class="kw">select.f</span>(S)</span>
+<span id="cb128-10"><a href="learning-in-a-language-of-thought.html#cb128-10"></a>        )</span>
+<span id="cb128-11"><a href="learning-in-a-language-of-thought.html#cb128-11"></a>      )</span>
+<span id="cb128-12"><a href="learning-in-a-language-of-thought.html#cb128-12"></a>    )</span>
+<span id="cb128-13"><a href="learning-in-a-language-of-thought.html#cb128-13"></a>  ))</span>
+<span id="cb128-14"><a href="learning-in-a-language-of-thought.html#cb128-14"></a>}</span></code></pre></div>
+<ul>
+<li>singularPlural</li>
+</ul>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="learning-in-a-language-of-thought.html#cb129-1"></a>singularPlural &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb129-2"><a href="learning-in-a-language-of-thought.html#cb129-2"></a>  <span class="kw">return</span>(<span class="kw">if.f</span>(</span>
+<span id="cb129-3"><a href="learning-in-a-language-of-thought.html#cb129-3"></a>    <span class="kw">singleton</span>(S),</span>
+<span id="cb129-4"><a href="learning-in-a-language-of-thought.html#cb129-4"></a>    <span class="st">&#39;one&#39;</span>,</span>
+<span id="cb129-5"><a href="learning-in-a-language-of-thought.html#cb129-5"></a>    <span class="st">&#39;two&#39;</span></span>
+<span id="cb129-6"><a href="learning-in-a-language-of-thought.html#cb129-6"></a>  ))</span>
+<span id="cb129-7"><a href="learning-in-a-language-of-thought.html#cb129-7"></a>}</span></code></pre></div>
+<ul>
+<li>mod5</li>
+</ul>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="learning-in-a-language-of-thought.html#cb130-1"></a>mod5 &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb130-2"><a href="learning-in-a-language-of-thought.html#cb130-2"></a>  <span class="kw">return</span>(</span>
+<span id="cb130-3"><a href="learning-in-a-language-of-thought.html#cb130-3"></a>    <span class="kw">if.f</span>(</span>
+<span id="cb130-4"><a href="learning-in-a-language-of-thought.html#cb130-4"></a>      <span class="kw">or.f</span>(</span>
+<span id="cb130-5"><a href="learning-in-a-language-of-thought.html#cb130-5"></a>        <span class="kw">singleton</span>(S),</span>
+<span id="cb130-6"><a href="learning-in-a-language-of-thought.html#cb130-6"></a>        <span class="kw">equal.word</span>(</span>
+<span id="cb130-7"><a href="learning-in-a-language-of-thought.html#cb130-7"></a>          <span class="kw">mod5</span>(</span>
+<span id="cb130-8"><a href="learning-in-a-language-of-thought.html#cb130-8"></a>            <span class="kw">set.difference</span>(</span>
+<span id="cb130-9"><a href="learning-in-a-language-of-thought.html#cb130-9"></a>              S,</span>
+<span id="cb130-10"><a href="learning-in-a-language-of-thought.html#cb130-10"></a>              <span class="kw">select.f</span>(S)</span>
+<span id="cb130-11"><a href="learning-in-a-language-of-thought.html#cb130-11"></a>            )</span>
+<span id="cb130-12"><a href="learning-in-a-language-of-thought.html#cb130-12"></a>          ),</span>
+<span id="cb130-13"><a href="learning-in-a-language-of-thought.html#cb130-13"></a>          <span class="st">&#39;four&#39;</span></span>
+<span id="cb130-14"><a href="learning-in-a-language-of-thought.html#cb130-14"></a>        )</span>
+<span id="cb130-15"><a href="learning-in-a-language-of-thought.html#cb130-15"></a>      ),</span>
+<span id="cb130-16"><a href="learning-in-a-language-of-thought.html#cb130-16"></a>      <span class="st">&#39;one&#39;</span>,</span>
+<span id="cb130-17"><a href="learning-in-a-language-of-thought.html#cb130-17"></a>      <span class="kw">next.f</span>(</span>
+<span id="cb130-18"><a href="learning-in-a-language-of-thought.html#cb130-18"></a>        <span class="kw">mod5</span>(</span>
+<span id="cb130-19"><a href="learning-in-a-language-of-thought.html#cb130-19"></a>          <span class="kw">set.difference</span>(</span>
+<span id="cb130-20"><a href="learning-in-a-language-of-thought.html#cb130-20"></a>            S,</span>
+<span id="cb130-21"><a href="learning-in-a-language-of-thought.html#cb130-21"></a>            <span class="kw">select.f</span>(S)</span>
+<span id="cb130-22"><a href="learning-in-a-language-of-thought.html#cb130-22"></a>          )</span>
+<span id="cb130-23"><a href="learning-in-a-language-of-thought.html#cb130-23"></a>        )</span>
+<span id="cb130-24"><a href="learning-in-a-language-of-thought.html#cb130-24"></a>      )</span>
+<span id="cb130-25"><a href="learning-in-a-language-of-thought.html#cb130-25"></a>    )</span>
+<span id="cb130-26"><a href="learning-in-a-language-of-thought.html#cb130-26"></a>  )</span>
+<span id="cb130-27"><a href="learning-in-a-language-of-thought.html#cb130-27"></a>}</span>
+<span id="cb130-28"><a href="learning-in-a-language-of-thought.html#cb130-28"></a><span class="co"># This one is kind of complicated, so just to convince you that it works as expected:</span></span>
+<span id="cb130-29"><a href="learning-in-a-language-of-thought.html#cb130-29"></a><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="cf">function</span>(n){<span class="kw">mod5</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>n))}))</span></code></pre></div>
+<pre><code>##  [1] &quot;one&quot;   &quot;two&quot;   &quot;three&quot; &quot;four&quot;  &quot;one&quot;   &quot;two&quot;   &quot;three&quot; &quot;four&quot;  &quot;one&quot;   &quot;two&quot;</code></pre>
+<ul>
+<li>twoNotOneKnower</li>
+</ul>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="learning-in-a-language-of-thought.html#cb132-1"></a>twoNotOneKnower &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb132-2"><a href="learning-in-a-language-of-thought.html#cb132-2"></a>  <span class="kw">return</span>(<span class="kw">if.f</span>(</span>
+<span id="cb132-3"><a href="learning-in-a-language-of-thought.html#cb132-3"></a>    <span class="kw">doubleton</span>(S), </span>
+<span id="cb132-4"><a href="learning-in-a-language-of-thought.html#cb132-4"></a>    <span class="st">&#39;two&#39;</span>, </span>
+<span id="cb132-5"><a href="learning-in-a-language-of-thought.html#cb132-5"></a>    <span class="st">&#39;na&#39;</span></span>
+<span id="cb132-6"><a href="learning-in-a-language-of-thought.html#cb132-6"></a>  ))</span>
+<span id="cb132-7"><a href="learning-in-a-language-of-thought.html#cb132-7"></a>}</span></code></pre></div>
+<ul>
+<li>twoNKnower</li>
+</ul>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="learning-in-a-language-of-thought.html#cb133-1"></a>twoNKnower &lt;-<span class="st"> </span><span class="cf">function</span>(S){</span>
+<span id="cb133-2"><a href="learning-in-a-language-of-thought.html#cb133-2"></a>  <span class="cf">if</span> (<span class="kw">length</span>(S)<span class="op">&lt;=</span><span class="dv">5</span>){</span>
+<span id="cb133-3"><a href="learning-in-a-language-of-thought.html#cb133-3"></a>    <span class="kw">return</span>(<span class="kw">if.f</span>(</span>
+<span id="cb133-4"><a href="learning-in-a-language-of-thought.html#cb133-4"></a>      <span class="kw">singleton</span>(S),</span>
+<span id="cb133-5"><a href="learning-in-a-language-of-thought.html#cb133-5"></a>      <span class="st">&#39;one&#39;</span>,</span>
+<span id="cb133-6"><a href="learning-in-a-language-of-thought.html#cb133-6"></a>      <span class="kw">next.f</span>(<span class="kw">next.f</span>(</span>
+<span id="cb133-7"><a href="learning-in-a-language-of-thought.html#cb133-7"></a>        <span class="kw">twoNKnower</span>(</span>
+<span id="cb133-8"><a href="learning-in-a-language-of-thought.html#cb133-8"></a>          <span class="kw">set.difference</span>(</span>
+<span id="cb133-9"><a href="learning-in-a-language-of-thought.html#cb133-9"></a>            S,</span>
+<span id="cb133-10"><a href="learning-in-a-language-of-thought.html#cb133-10"></a>            <span class="kw">select.f</span>(S)</span>
+<span id="cb133-11"><a href="learning-in-a-language-of-thought.html#cb133-11"></a>          )</span>
+<span id="cb133-12"><a href="learning-in-a-language-of-thought.html#cb133-12"></a>        )</span>
+<span id="cb133-13"><a href="learning-in-a-language-of-thought.html#cb133-13"></a>      ))</span>
+<span id="cb133-14"><a href="learning-in-a-language-of-thought.html#cb133-14"></a>    ))</span>
+<span id="cb133-15"><a href="learning-in-a-language-of-thought.html#cb133-15"></a>  } <span class="cf">else</span>{</span>
+<span id="cb133-16"><a href="learning-in-a-language-of-thought.html#cb133-16"></a>    <span class="kw">return</span>(words[<span class="kw">length</span>(words)])</span>
+<span id="cb133-17"><a href="learning-in-a-language-of-thought.html#cb133-17"></a>  }</span>
+<span id="cb133-18"><a href="learning-in-a-language-of-thought.html#cb133-18"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="learning-in-a-language-of-thought.html#cb134-1"></a>LoTs &lt;-</span>
+<span id="cb134-2"><a href="learning-in-a-language-of-thought.html#cb134-2"></a><span class="st">  </span><span class="kw">c</span>(oneKnower,</span>
+<span id="cb134-3"><a href="learning-in-a-language-of-thought.html#cb134-3"></a>    twoKnower,</span>
+<span id="cb134-4"><a href="learning-in-a-language-of-thought.html#cb134-4"></a>    threeKnower,</span>
+<span id="cb134-5"><a href="learning-in-a-language-of-thought.html#cb134-5"></a>    CPKnower,</span>
+<span id="cb134-6"><a href="learning-in-a-language-of-thought.html#cb134-6"></a>    singularPlural,</span>
+<span id="cb134-7"><a href="learning-in-a-language-of-thought.html#cb134-7"></a>    mod5,</span>
+<span id="cb134-8"><a href="learning-in-a-language-of-thought.html#cb134-8"></a>    twoNotOneKnower,</span>
+<span id="cb134-9"><a href="learning-in-a-language-of-thought.html#cb134-9"></a>    twoNKnower</span>
+<span id="cb134-10"><a href="learning-in-a-language-of-thought.html#cb134-10"></a>  )</span>
+<span id="cb134-11"><a href="learning-in-a-language-of-thought.html#cb134-11"></a><span class="kw">names</span>(LoTs) &lt;-</span>
+<span id="cb134-12"><a href="learning-in-a-language-of-thought.html#cb134-12"></a><span class="st">  </span><span class="kw">c</span>(<span class="st">&#39;oneKnower&#39;</span>,</span>
+<span id="cb134-13"><a href="learning-in-a-language-of-thought.html#cb134-13"></a>    <span class="st">&#39;twoKnower&#39;</span>,</span>
+<span id="cb134-14"><a href="learning-in-a-language-of-thought.html#cb134-14"></a>    <span class="st">&#39;threeKnower&#39;</span>,</span>
+<span id="cb134-15"><a href="learning-in-a-language-of-thought.html#cb134-15"></a>    <span class="st">&#39;CPKnower&#39;</span>,</span>
+<span id="cb134-16"><a href="learning-in-a-language-of-thought.html#cb134-16"></a>    <span class="st">&#39;singularPlural&#39;</span>,</span>
+<span id="cb134-17"><a href="learning-in-a-language-of-thought.html#cb134-17"></a>    <span class="st">&#39;mod5&#39;</span>,</span>
+<span id="cb134-18"><a href="learning-in-a-language-of-thought.html#cb134-18"></a>    <span class="st">&#39;twoNotOneKnower&#39;</span>,</span>
+<span id="cb134-19"><a href="learning-in-a-language-of-thought.html#cb134-19"></a>    <span class="st">&#39;twoNKnower&#39;</span></span>
+<span id="cb134-20"><a href="learning-in-a-language-of-thought.html#cb134-20"></a>  )</span></code></pre></div>
+<p>For example, let’s see what word oneKnower produces for the sets defined above:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="learning-in-a-language-of-thought.html#cb135-1"></a><span class="kw">print</span>(<span class="kw">oneKnower</span>(setA))</span></code></pre></div>
+<pre><code>## [1] &quot;na&quot;</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="learning-in-a-language-of-thought.html#cb137-1"></a><span class="kw">print</span>(<span class="kw">oneKnower</span>(setB))</span></code></pre></div>
+<pre><code>## [1] &quot;na&quot;</code></pre>
+</div>
+<div id="learning-an-lot" class="section level2">
+<h2><span class="header-section-number">6.3</span> Learning an LoT</h2>
+<p>What we are really interested in is the likelihood function, i.e. the function from a set (really, a set size) to the probability of producing each number word, in each LoT. The authors add two complications. First, when ‘NA’ is produced, a word is chosen uniformly from the number words. Second, with a small probability the speaker chooses a number word at random. Let’s write a function that for a given LoT gives the probability of each number word given a set size.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="learning-in-a-language-of-thought.html#cb139-1"></a>word.to.p &lt;-</span>
+<span id="cb139-2"><a href="learning-in-a-language-of-thought.html#cb139-2"></a><span class="st">  </span><span class="cf">function</span>(proposed.word,</span>
+<span id="cb139-3"><a href="learning-in-a-language-of-thought.html#cb139-3"></a>           literal.word,</span>
+<span id="cb139-4"><a href="learning-in-a-language-of-thought.html#cb139-4"></a>           <span class="dt">alpha =</span> <span class="fl">0.95</span>) {</span>
+<span id="cb139-5"><a href="learning-in-a-language-of-thought.html#cb139-5"></a>    <span class="co"># equation 5 in the paper</span></span>
+<span id="cb139-6"><a href="learning-in-a-language-of-thought.html#cb139-6"></a>    <span class="cf">if</span> (literal.word <span class="op">==</span><span class="st"> &#39;na&#39;</span>) {</span>
+<span id="cb139-7"><a href="learning-in-a-language-of-thought.html#cb139-7"></a>      <span class="kw">return</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(words))</span>
+<span id="cb139-8"><a href="learning-in-a-language-of-thought.html#cb139-8"></a>    } <span class="cf">else</span> <span class="cf">if</span> (literal.word <span class="op">==</span><span class="st"> </span>proposed.word) {</span>
+<span id="cb139-9"><a href="learning-in-a-language-of-thought.html#cb139-9"></a>      alpha <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(words))</span>
+<span id="cb139-10"><a href="learning-in-a-language-of-thought.html#cb139-10"></a>    } <span class="cf">else</span> {</span>
+<span id="cb139-11"><a href="learning-in-a-language-of-thought.html#cb139-11"></a>      (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(words))</span>
+<span id="cb139-12"><a href="learning-in-a-language-of-thought.html#cb139-12"></a>    }</span>
+<span id="cb139-13"><a href="learning-in-a-language-of-thought.html#cb139-13"></a>}</span>
+<span id="cb139-14"><a href="learning-in-a-language-of-thought.html#cb139-14"></a></span>
+<span id="cb139-15"><a href="learning-in-a-language-of-thought.html#cb139-15"></a></span>
+<span id="cb139-16"><a href="learning-in-a-language-of-thought.html#cb139-16"></a>likelihood.f &lt;-</span>
+<span id="cb139-17"><a href="learning-in-a-language-of-thought.html#cb139-17"></a><span class="st">  </span><span class="cf">function</span>(LoT,</span>
+<span id="cb139-18"><a href="learning-in-a-language-of-thought.html#cb139-18"></a>           set.to.evaluate,</span>
+<span id="cb139-19"><a href="learning-in-a-language-of-thought.html#cb139-19"></a>           <span class="dt">alpha =</span> <span class="fl">0.7</span>) {</span>
+<span id="cb139-20"><a href="learning-in-a-language-of-thought.html#cb139-20"></a>    word &lt;-<span class="st"> </span><span class="kw">LoT</span>(set.to.evaluate)</span>
+<span id="cb139-21"><a href="learning-in-a-language-of-thought.html#cb139-21"></a>    list.p &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(</span>
+<span id="cb139-22"><a href="learning-in-a-language-of-thought.html#cb139-22"></a>      words,</span>
+<span id="cb139-23"><a href="learning-in-a-language-of-thought.html#cb139-23"></a>      word.to.p,</span>
+<span id="cb139-24"><a href="learning-in-a-language-of-thought.html#cb139-24"></a>      <span class="dt">literal.word =</span> word,</span>
+<span id="cb139-25"><a href="learning-in-a-language-of-thought.html#cb139-25"></a>      <span class="dt">alpha =</span> alpha</span>
+<span id="cb139-26"><a href="learning-in-a-language-of-thought.html#cb139-26"></a>    ))</span>
+<span id="cb139-27"><a href="learning-in-a-language-of-thought.html#cb139-27"></a>    <span class="kw">names</span>(list.p) &lt;-<span class="st"> </span>words</span>
+<span id="cb139-28"><a href="learning-in-a-language-of-thought.html#cb139-28"></a>    <span class="kw">return</span>(list.p)</span>
+<span id="cb139-29"><a href="learning-in-a-language-of-thought.html#cb139-29"></a>  }</span></code></pre></div>
+<p>Let’s test the likelihood function by producing the probability of each number word produced by each LoT given setA:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="learning-in-a-language-of-thought.html#cb140-1"></a><span class="kw">lapply</span>(</span>
+<span id="cb140-2"><a href="learning-in-a-language-of-thought.html#cb140-2"></a>  LoTs,</span>
+<span id="cb140-3"><a href="learning-in-a-language-of-thought.html#cb140-3"></a>  likelihood.f,</span>
+<span id="cb140-4"><a href="learning-in-a-language-of-thought.html#cb140-4"></a>  <span class="dt">set.to.evaluate =</span> setA,</span>
+<span id="cb140-5"><a href="learning-in-a-language-of-thought.html#cb140-5"></a>  <span class="dt">alpha =</span> <span class="fl">0.9</span></span>
+<span id="cb140-6"><a href="learning-in-a-language-of-thought.html#cb140-6"></a>)</span></code></pre></div>
+<pre><code>## $oneKnower
+##   one   two three  four  five   six seven eight  nine   ten 
+##   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1 
+## 
+## $twoKnower
+##   one   two three  four  five   six seven eight  nine   ten 
+##   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1 
+## 
+## $threeKnower
+##   one   two three  four  five   six seven eight  nine   ten 
+##   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1 
+## 
+## $CPKnower
+##   one   two three  four  five   six seven eight  nine   ten 
+##  0.01  0.01  0.01  0.01  0.91  0.01  0.01  0.01  0.01  0.01 
+## 
+## $singularPlural
+##   one   two three  four  five   six seven eight  nine   ten 
+##  0.01  0.91  0.01  0.01  0.01  0.01  0.01  0.01  0.01  0.01 
+## 
+## $mod5
+##   one   two three  four  five   six seven eight  nine   ten 
+##  0.91  0.01  0.01  0.01  0.01  0.01  0.01  0.01  0.01  0.01 
+## 
+## $twoNotOneKnower
+##   one   two three  four  five   six seven eight  nine   ten 
+##   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1   0.1 
+## 
+## $twoNKnower
+##   one   two three  four  five   six seven eight  nine   ten 
+##  0.01  0.01  0.01  0.01  0.01  0.01  0.01  0.01  0.91  0.01</code></pre>
+<p>Function <code>likelihood.f</code> gives us the probability of each number word, given an LoT and a set. Formally, <span class="math inline">\(P(w | t, c, L)\)</span> for each possible value of <span class="math inline">\(w\)</span>, given specific values of <span class="math inline">\(t,c,L\)</span>.</p>
+<p>The prior is calculated in a rather complex way as a function of the length of the expression encoding the hypothesis (the number system) and whether it contains recursion (i.e. whether the function calls itself). We could try and write the code to do this based on derivation lengths, but it would be pretty complicated. Let’s just eyeball it:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="learning-in-a-language-of-thought.html#cb142-1"></a>alpha &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb142-2"><a href="learning-in-a-language-of-thought.html#cb142-2"></a><span class="co"># I am adding 2 for L, the recursion</span></span>
+<span id="cb142-3"><a href="learning-in-a-language-of-thought.html#cb142-3"></a>n.operators.used &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span><span class="op">+</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">9</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">6</span><span class="op">+</span><span class="dv">2</span>)</span>
+<span id="cb142-4"><a href="learning-in-a-language-of-thought.html#cb142-4"></a><span class="kw">names</span>(n.operators.used) &lt;-<span class="st"> </span><span class="kw">names</span>(LoTs)</span>
+<span id="cb142-5"><a href="learning-in-a-language-of-thought.html#cb142-5"></a>unnorm.softmax &lt;-<span class="st"> </span><span class="kw">exp</span>(alpha<span class="op">*-</span>n.operators.used)</span>
+<span id="cb142-6"><a href="learning-in-a-language-of-thought.html#cb142-6"></a>priors &lt;-<span class="st"> </span><span class="kw">c</span>(unnorm.softmax) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(unnorm.softmax)</span>
+<span id="cb142-7"><a href="learning-in-a-language-of-thought.html#cb142-7"></a>priors</span></code></pre></div>
+<pre><code>##       oneKnower       twoKnower     threeKnower        CPKnower  singularPlural            mod5 
+##    3.330575e-01    8.255669e-04    2.046376e-06    5.072458e-09    3.330575e-01    1.551677e-15 
+## twoNotOneKnower      twoNKnower 
+##    3.330575e-01    5.072458e-09</code></pre>
+<p>What we want is <span class="math inline">\(P(L | W, T, C)\)</span>. We can apply Bayes rule:</p>
+<p><span class="math display">\[\begin{align}
+P(L | W, T, C) 
+&amp;= \frac{P(W | L, T, C) P(L | T,C)}{P(W | T, C)} \\
+&amp;= \frac{P(W | L, T, C) P(L)}{P(W | T, C)} \\
+&amp;= P(L)\frac{\prod_i P(w_i | L, t_i, c_i)}{\sum_i P(W |l_i, T, C) P(l_i)} \\
+&amp;= P(L)\frac{\prod_i P(w_i | L, t_i, c_i)}{\sum_i \left( \prod_j P(w_j |l_i, t_j, c_j) P(l_i) \right)} \\
+\end{align}\]</span></p>
+<p>So all the indices vary over dimensions that we can calculate explicitly: either the observations, or the LoTs. In particular, in the original papers they can’t simply loop over the LoTs, since they consider the infinite space of all LoTs, and that forces them to do something fancier called MCMC. However, we only consider the handful of LoTs defined above.</p>
+<p><code>n.elements.to.set</code> takes a number and returns a set with the given number of elements. The elements of the set are shuffled letters.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="learning-in-a-language-of-thought.html#cb144-1"></a>n.elements.to.set &lt;-<span class="st"> </span><span class="cf">function</span>(n.elements){</span>
+<span id="cb144-2"><a href="learning-in-a-language-of-thought.html#cb144-2"></a>  <span class="kw">return</span>(<span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>,<span class="st">&#39;d&#39;</span>,<span class="st">&#39;e&#39;</span>,<span class="st">&#39;f&#39;</span>,<span class="st">&#39;g&#39;</span>,<span class="st">&#39;h&#39;</span>,<span class="st">&#39;i&#39;</span>,<span class="st">&#39;j&#39;</span>))[<span class="dv">1</span><span class="op">:</span>n.elements])</span>
+<span id="cb144-3"><a href="learning-in-a-language-of-thought.html#cb144-3"></a>}</span></code></pre></div>
+<p><code>probs</code> gives the probability of each numeral (eyeballing Figure 2 from the paper).</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="learning-in-a-language-of-thought.html#cb145-1"></a>probs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.14</span>, <span class="fl">0.05</span>, <span class="fl">0.025</span>, <span class="fl">0.02</span>, <span class="fl">0.018</span>, <span class="fl">0.012</span>, <span class="fl">0.02</span>, <span class="fl">0.01</span>, <span class="fl">0.005</span>)</span>
+<span id="cb145-2"><a href="learning-in-a-language-of-thought.html#cb145-2"></a><span class="co"># print(1-sum(probs))</span></span>
+<span id="cb145-3"><a href="learning-in-a-language-of-thought.html#cb145-3"></a><span class="kw">barplot</span>(probs)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p>Specify the number of observations to show the learner, create vector of set sizes.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="learning-in-a-language-of-thought.html#cb146-1"></a>n.observations &lt;-<span class="st"> </span><span class="dv">350</span></span>
+<span id="cb146-2"><a href="learning-in-a-language-of-thought.html#cb146-2"></a>set.sizes &lt;-<span class="st"> </span><span class="kw">sample</span>(</span>
+<span id="cb146-3"><a href="learning-in-a-language-of-thought.html#cb146-3"></a>  <span class="dv">10</span>, </span>
+<span id="cb146-4"><a href="learning-in-a-language-of-thought.html#cb146-4"></a>  n.observations, </span>
+<span id="cb146-5"><a href="learning-in-a-language-of-thought.html#cb146-5"></a>  <span class="dt">replace =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb146-6"><a href="learning-in-a-language-of-thought.html#cb146-6"></a>  <span class="dt">prob=</span>probs</span>
+<span id="cb146-7"><a href="learning-in-a-language-of-thought.html#cb146-7"></a>)</span></code></pre></div>
+<p>Create a vector of sets with the specified sizes.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="learning-in-a-language-of-thought.html#cb147-1"></a>observed.sets &lt;-<span class="st"> </span><span class="kw">lapply</span>(set.sizes, n.elements.to.set)</span></code></pre></div>
+<p>Create vector of true words using the CPKnower:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="learning-in-a-language-of-thought.html#cb148-1"></a>true.words &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(observed.sets, CPKnower))</span></code></pre></div>
+<p>NOTE: in the paper, they assume these words are produced noisily, while here we just produce them without noise.</p>
+<p>For each LoT and each set, get proposed word for that set in that LoT:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="learning-in-a-language-of-thought.html#cb149-1"></a>proposed.words &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">row.names =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>n.observations))</span>
+<span id="cb149-2"><a href="learning-in-a-language-of-thought.html#cb149-2"></a><span class="cf">for</span> (lot.name <span class="cf">in</span> <span class="kw">names</span>(LoTs)){</span>
+<span id="cb149-3"><a href="learning-in-a-language-of-thought.html#cb149-3"></a>  new.words &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(observed.sets, LoTs[[lot.name]]))</span>
+<span id="cb149-4"><a href="learning-in-a-language-of-thought.html#cb149-4"></a>  proposed.words[[lot.name]] &lt;-<span class="st"> </span>new.words</span>
+<span id="cb149-5"><a href="learning-in-a-language-of-thought.html#cb149-5"></a>}</span></code></pre></div>
+<p>For each LoT, calculate the likelihood of each word given each set:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="learning-in-a-language-of-thought.html#cb150-1"></a>loglikelihoods &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">row.names=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>n.observations))</span>
+<span id="cb150-2"><a href="learning-in-a-language-of-thought.html#cb150-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">colnames</span>(proposed.words)){</span>
+<span id="cb150-3"><a href="learning-in-a-language-of-thought.html#cb150-3"></a>  <span class="co"># print(proposed.words[i])</span></span>
+<span id="cb150-4"><a href="learning-in-a-language-of-thought.html#cb150-4"></a>  p.lot &lt;-</span>
+<span id="cb150-5"><a href="learning-in-a-language-of-thought.html#cb150-5"></a><span class="st">    </span><span class="kw">mapply</span>(word.to.p,</span>
+<span id="cb150-6"><a href="learning-in-a-language-of-thought.html#cb150-6"></a>           <span class="kw">c</span>(proposed.words[[i]]),</span>
+<span id="cb150-7"><a href="learning-in-a-language-of-thought.html#cb150-7"></a>           true.words)</span>
+<span id="cb150-8"><a href="learning-in-a-language-of-thought.html#cb150-8"></a>  loglikelihoods[i] &lt;-<span class="st"> </span><span class="kw">log</span>(p.lot)</span>
+<span id="cb150-9"><a href="learning-in-a-language-of-thought.html#cb150-9"></a>}</span>
+<span id="cb150-10"><a href="learning-in-a-language-of-thought.html#cb150-10"></a></span>
+<span id="cb150-11"><a href="learning-in-a-language-of-thought.html#cb150-11"></a><span class="kw">tail</span>(loglikelihoods)</span></code></pre></div>
+<pre><code>##       oneKnower   twoKnower threeKnower    CPKnower singularPlural        mod5 twoNotOneKnower
+## 345 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394       -5.298317
+## 346 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394       -5.298317
+## 347 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394       -5.298317
+## 348 -5.29831737 -5.29831737 -5.29831737 -0.04604394    -5.29831737 -0.04604394       -5.298317
+## 349 -0.04604394 -0.04604394 -0.04604394 -0.04604394    -0.04604394 -0.04604394       -5.298317
+## 350 -5.29831737 -5.29831737 -5.29831737 -0.04604394    -5.29831737 -5.29831737       -5.298317
+##      twoNKnower
+## 345 -0.04604394
+## 346 -0.04604394
+## 347 -0.04604394
+## 348 -5.29831737
+## 349 -0.04604394
+## 350 -5.29831737</code></pre>
+<p>NOTE: the CPKnower always gets the highest possible likelihood for all true number words, because it’s the true speaker!</p>
+<p>The cumulative product of the likelihood (or in this case the cumulative sum of the loglikelihood) tells us what the likelihood was at each successive observation for each LoT.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="learning-in-a-language-of-thought.html#cb152-1"></a>cumulative.loglikelihood &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sapply</span>(loglikelihoods, cumsum))</span>
+<span id="cb152-2"><a href="learning-in-a-language-of-thought.html#cb152-2"></a></span>
+<span id="cb152-3"><a href="learning-in-a-language-of-thought.html#cb152-3"></a>unnormalized.cumulative.logposterior &lt;-<span class="st"> </span></span>
+<span id="cb152-4"><a href="learning-in-a-language-of-thought.html#cb152-4"></a><span class="st">  </span>cumulative.loglikelihood <span class="op">+</span></span>
+<span id="cb152-5"><a href="learning-in-a-language-of-thought.html#cb152-5"></a><span class="st">  </span><span class="kw">log</span>(priors)</span></code></pre></div>
+<p>Lognormalize the result:</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="learning-in-a-language-of-thought.html#cb153-1"></a>posterior &lt;-<span class="st"> </span><span class="kw">exp</span>(</span>
+<span id="cb153-2"><a href="learning-in-a-language-of-thought.html#cb153-2"></a>  unnormalized.cumulative.logposterior <span class="op">-</span><span class="st"> </span></span>
+<span id="cb153-3"><a href="learning-in-a-language-of-thought.html#cb153-3"></a><span class="st">  </span>matrixStats<span class="op">::</span><span class="kw">rowLogSumExps</span>(unnormalized.cumulative.logposterior)</span>
+<span id="cb153-4"><a href="learning-in-a-language-of-thought.html#cb153-4"></a>)</span>
+<span id="cb153-5"><a href="learning-in-a-language-of-thought.html#cb153-5"></a></span>
+<span id="cb153-6"><a href="learning-in-a-language-of-thought.html#cb153-6"></a><span class="kw">head</span>(posterior)</span></code></pre></div>
+<pre><code>##         oneKnower    twoKnower  threeKnower     CPKnower singularPlural         mod5 twoNotOneKnower
+## [1,] 2.590666e-03 2.590666e-03 4.948171e-01 3.040262e-06   2.590666e-03 4.948171e-01    2.590666e-03
+## [2,] 4.493710e-01 2.761031e-06 1.613197e-10 1.007252e-01   4.493710e-01 5.273569e-04    8.446057e-13
+## [3,] 8.771750e-13 1.427644e-07 2.726801e-05 9.947641e-01   8.771750e-13 5.208189e-03    1.427644e-07
+## [4,] 1.684176e-10 2.741078e-05 3.216777e-08 3.589802e-10   1.684176e-10 9.999726e-01    8.817677e-13
+## [5,] 1.435119e-07 8.817673e-13 2.741077e-05 9.999721e-01   1.435119e-07 3.216775e-08    3.933880e-12
+## [6,] 2.246002e-16 7.342219e-10 2.282414e-02 9.771491e-01   2.246002e-16 2.678515e-05    3.275627e-09
+##        twoNKnower
+## [1,] 1.591760e-08
+## [2,] 2.761031e-06
+## [3,] 1.427644e-07
+## [4,] 5.151935e-17
+## [5,] 1.435119e-07
+## [6,] 7.342219e-10</code></pre>
+<p>Finally, let’s plot the posterior distribution. You can see that the general pattern from the paper holds: initially, various other hypotheses dominate, but eventually over enough observations the CPKnower wins out. Note that this plot is similar but not identical to Figure 3(a) in the paper. The difference is that they consider all possible LoTs, and therefore more than one LoT encodes each type of agent - e.g. more than one LoT is a oneKnower etc. On the other hand, we specified a small list of LoTs.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="learning-in-a-language-of-thought.html#cb155-1"></a>posterior &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(posterior)</span>
+<span id="cb155-2"><a href="learning-in-a-language-of-thought.html#cb155-2"></a><span class="kw">matplot</span>(</span>
+<span id="cb155-3"><a href="learning-in-a-language-of-thought.html#cb155-3"></a>  <span class="kw">rownames</span>(posterior),</span>
+<span id="cb155-4"><a href="learning-in-a-language-of-thought.html#cb155-4"></a>  posterior,</span>
+<span id="cb155-5"><a href="learning-in-a-language-of-thought.html#cb155-5"></a>  <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,</span>
+<span id="cb155-6"><a href="learning-in-a-language-of-thought.html#cb155-6"></a>  <span class="dt">xlab =</span> <span class="st">&#39;Observation&#39;</span>,</span>
+<span id="cb155-7"><a href="learning-in-a-language-of-thought.html#cb155-7"></a>  <span class="dt">ylab =</span> <span class="st">&#39;Posterior&#39;</span>,</span>
+<span id="cb155-8"><a href="learning-in-a-language-of-thought.html#cb155-8"></a>  <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(posterior)</span>
+<span id="cb155-9"><a href="learning-in-a-language-of-thought.html#cb155-9"></a>)</span>
+<span id="cb155-10"><a href="learning-in-a-language-of-thought.html#cb155-10"></a><span class="kw">legend</span>(</span>
+<span id="cb155-11"><a href="learning-in-a-language-of-thought.html#cb155-11"></a>  <span class="st">&#39;bottomright&#39;</span>,</span>
+<span id="cb155-12"><a href="learning-in-a-language-of-thought.html#cb155-12"></a>  <span class="dt">inset =</span> <span class="fl">.05</span>,</span>
+<span id="cb155-13"><a href="learning-in-a-language-of-thought.html#cb155-13"></a>  <span class="dt">legend =</span> <span class="kw">colnames</span>(posterior),</span>
+<span id="cb155-14"><a href="learning-in-a-language-of-thought.html#cb155-14"></a>  <span class="dt">pch =</span> <span class="dv">1</span>,</span>
+<span id="cb155-15"><a href="learning-in-a-language-of-thought.html#cb155-15"></a>  <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(posterior)</span>
+<span id="cb155-16"><a href="learning-in-a-language-of-thought.html#cb155-16"></a>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+</div>
+<div id="if-there-is-time-left-4" class="section level2">
+<h2><span class="header-section-number">6.4</span> If there is time left…</h2>
+<ul>
+<li>Put the above code into a function that runs the simulation repeatedly, and check what happens when you average multiple runs of the simulation.</li>
+<li>Come up with a different LoT and add it to the list above, and run the simulation. How does it compare to the other LoTs?</li>
+<li>Add noise to the generation of the observed number words. How does it change the results?</li>
+</ul>
+</div>
+<div id="exercises-5" class="section level2">
+<h2><span class="header-section-number">6.5</span> Exercises</h2>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-1" class="exercise"><strong>Exercise 6.1  </strong></span>Change the probabilities of seeing the numerals (in <code>probs</code>) so that the agent only ever sees ‘one’ and ‘two’, with equal probability. Train the agent again, plot the result, and describe what happens to the learning.</p>
+</div>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-2" class="exercise"><strong>Exercise 6.2  </strong></span>Use the conceptual primitives defined in the notebook to define an LoT</p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="inferring-causality.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

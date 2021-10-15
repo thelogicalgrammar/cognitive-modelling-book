@@ -40,7 +40,7 @@ appendices-you-dont-need-to-understand-them
 appendix-1
 appendix-2-gamma1.
 appendix-3-another-complication
-learning-a-language-of-thought
+learning-in-a-language-of-thought
 the-logsumexp-function
 the-conceptual-primitives-and-number-systems
 learning-an-lot
