@@ -24,7 +24,7 @@
 <meta name="author" content="Fausto Carcassi" />
 
 
-<meta name="date" content="2021-10-15" />
+<meta name="date" content="2021-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="introduction.html#cb3-5"></a>                       <span class="co"># of each hypothesis.</span></span>
 <span id="cb3-6"><a href="introduction.html#cb3-6"></a>                       <span class="dt">prob=</span>p.hypotheses)</span>
 <span id="cb3-7"><a href="introduction.html#cb3-7"></a><span class="kw">head</span>(prior.samples)</span></code></pre></div>
-<pre><code>## [1] 8 5 5 3 6 4</code></pre>
+<pre><code>## [1] 5 0 5 5 3 8</code></pre>
 <p>Here each number corresponds to one hypothesis: 1 corresponds to R1, 2 to R2, etc. You can see each sample as a possible way the unknown part of the world could be. Since the prior was uniform (i.e. each hypothesis had the same probability), each hypothesis appears more or less equally often. Let’s plot this to make sure:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1"></a><span class="kw">hist</span>(</span>
 <span id="cb5-2"><a href="introduction.html#cb5-2"></a>  prior.samples,</span>
@@ -279,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now for each element of <code>prior_samples</code>, we want to sample an observation. To do that, let’s first calculate the probability of the <span class="math inline">\(RB\)</span> observation for each element of <code>prior_samples</code>. If an element of <code>prior_samples</code> is for instance 2, we want the probability of <span class="math inline">\(RB\)</span> to be <span class="math inline">\(2/9\)</span>. In general, if the element is <span class="math inline">\(n\)</span>, we want the corresponding probability of <span class="math inline">\(RB\)</span> to be <span class="math inline">\(n/9\)</span>. We can do this in a simple way with R, exploiting the fact that it intelligently adapts dimensions to each other:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1"></a>p.RB &lt;-<span class="st"> </span>prior.samples <span class="op">/</span><span class="st"> </span><span class="dv">9</span></span>
 <span id="cb6-2"><a href="introduction.html#cb6-2"></a><span class="kw">head</span>(p.RB)</span></code></pre></div>
-<pre><code>## [1] 0.8888889 0.5555556 0.5555556 0.3333333 0.6666667 0.4444444</code></pre>
+<pre><code>## [1] 0.5555556 0.0000000 0.5555556 0.5555556 0.3333333 0.8888889</code></pre>
 <p>Finally, we just need to sample one value for each element of <code>p.RB</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introduction.html#cb8-1"></a>samples.RB &lt;-<span class="st"> </span><span class="kw">rbinom</span>(</span>
 <span id="cb8-2"><a href="introduction.html#cb8-2"></a>  <span class="dt">n=</span><span class="kw">length</span>(p.RB),</span>
@@ -287,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-4"><a href="introduction.html#cb8-4"></a>  <span class="dt">prob=</span>p.RB</span>
 <span id="cb8-5"><a href="introduction.html#cb8-5"></a>)</span>
 <span id="cb8-6"><a href="introduction.html#cb8-6"></a><span class="kw">head</span>(samples.RB)</span></code></pre></div>
-<pre><code>## [1] 0 1 1 0 1 0</code></pre>
+<pre><code>## [1] 1 0 0 1 0 0</code></pre>
 <p><code>samples.RB</code> is equal to 1 when the observation was RB, and 0 when the observation was not RB (i.e. was BB). Just for sanity, let’s see how many observations of each type we got:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction.html#cb10-1"></a><span class="kw">hist</span>(</span>
 <span id="cb10-2"><a href="introduction.html#cb10-2"></a>  samples.RB,</span>
